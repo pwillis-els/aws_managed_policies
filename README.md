@@ -2,6 +2,7 @@ Collection of the AWS Managed IAM policies.  These were acquired as follows:
 
 ```
 aws iam list-policies > list-policies.json
+mkdir policies
 cat list-policies.json | jq -cr '.Policies[] | select(.Arn | contains("iam::aws"))|.Arn +" "+ .DefaultVersionId+" "+.PolicyName' | xargs -n3 sh -c 'aws iam get-policy-version --policy-arn $1 --version-id $2 > "policies/$3"' sh
 ```
 
